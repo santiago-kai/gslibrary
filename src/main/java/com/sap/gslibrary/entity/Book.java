@@ -28,7 +28,7 @@ public class Book {
 	
 	@NotNull
 	@Column(name = "NAME", unique = true)
-	private int name;
+	private String name;
 	
 	@Column(name = "DONOR")
 	private String donor;
@@ -62,7 +62,7 @@ public class Book {
         this.id  = id;
     }
 
-    public Book(int id, @NotNull int name, 
+    public Book(int id, @NotNull String name, 
     		String donor, String category, Date purchasingTime, 
     		String description, String borrower, 
     		Date borrowerTime, Date lastModified) {
@@ -85,11 +85,11 @@ public class Book {
 		this.id = id;
 	}
 	
-	public int getName() {
+	public String getName() {
 		return name;
 	}
 	
-	public void setName(int name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 	
@@ -139,6 +139,14 @@ public class Book {
 	
 	public void setBorrowerTime(java.util.Date borrowerTime) {
 		this.borrowerTime = borrowerTime;
+	}
+
+	public Date getLastModified() {
+		return lastModified;
+	}
+
+	public void setLastModified(Date lastModified) {
+		this.lastModified = lastModified;
 	}
    
 }

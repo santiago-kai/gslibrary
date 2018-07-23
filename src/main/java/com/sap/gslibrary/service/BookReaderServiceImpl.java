@@ -7,22 +7,22 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sap.gslibrary.dao.ReaderRepository;
-import com.sap.gslibrary.entity.Reader;
+import com.sap.gslibrary.dao.BookReaderRepository;
+import com.sap.gslibrary.entity.BookReader;
 
 @Transactional
 @Service
-public class ReaderServiceImpl implements ReaderService {
+public class BookReaderServiceImpl implements BookReaderService {
 	
-	private ReaderRepository readerRepository;
+	private BookReaderRepository readerRepository;
 	
 	@Autowired
-	public ReaderServiceImpl(ReaderRepository readersRepository) {
+	public BookReaderServiceImpl(BookReaderRepository readersRepository) {
         this.readerRepository = readersRepository;
     }
 	
 	@Override
-	public Reader insertReader(Reader reader) {
+	public BookReader insertReader(BookReader reader) {
 		if (reader != null) {
 			readerRepository.save(reader);
         }
@@ -30,23 +30,22 @@ public class ReaderServiceImpl implements ReaderService {
 	}
 
 	@Override
-	public List<Reader> findByName(String name) {
-		return readerRepository.findByName(name);
+	public BookReader findByUserId(String userId) {
+		return readerRepository.findByUserId(userId);
 	}
 	
 	@Override
-	public List<Reader> findAll() {
+	public List<BookReader> findAll() {
 		return readerRepository.findAll();
 	}
 	
 	@Override
 	public void deleteById(Integer id) {
-		readerRepository.delete(new Reader(id));
-		
+		readerRepository.delete(new BookReader(id));	
 	}
 
 	@Override
-	public Reader updateReader(Reader reader) {
+	public BookReader updateReader(BookReader reader) {		
 		return readerRepository.save(reader);
 	}
 

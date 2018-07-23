@@ -19,8 +19,8 @@ import javax.persistence.TemporalType;
 import org.springframework.lang.NonNull;
 
 @Entity
-@Table(name = "READERS")
-public class Reader {
+@Table(name = "BOOKREADERS")
+public class BookReader {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,17 +43,18 @@ public class Reader {
 	private Date lastModified;
 
 	//constructor without parameter
-	public Reader() {
+	public BookReader() {
     }
 
-    public Reader(Integer id) {
+    public BookReader(Integer id) {
         this.id  = id;
     }
 
-    public Reader(String userId, String name, Integer borrowBooksCount) {
+    public BookReader(String userId, String name, Integer borrowBooksCount, Date lastModified) {
         this.userId = userId;
         this.name = name;
         this.borrowBooksCount = borrowBooksCount;
+        this.lastModified = lastModified;
     }
 	
 	public int getId() {
