@@ -8,4 +8,6 @@ import com.sap.gslibrary.entity.Book;
 
 public interface BookRepository extends JpaRepository<Book, Integer> {
 	List<Book> findByName(String name);
+	
+	Book findByIsbn(String isbn);
 }

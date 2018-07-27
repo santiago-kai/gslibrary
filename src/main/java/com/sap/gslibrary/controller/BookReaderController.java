@@ -3,7 +3,10 @@ package com.sap.gslibrary.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,46 +23,41 @@ public class BookReaderController {
         this.readerService = readerService;
     }
 
-    @PostMapping("/bookreader")
-    public BookReader insertReader(@RequestParam("userId") String userId,
-    		                   @RequestParam("name") String name,
-    		                   @RequestParam("borrowBooksCount") Integer borrowBooksCount) {
-    	BookReader reader = new BookReader();
-    	reader.setUserId(userId);
-    	reader.setName(name);
-    	reader.setBorrowBooksCount(borrowBooksCount);
-    	reader.setLastModified(new Date());
+    @PostMapping("/insertbookreader")
+    public BookReader insertBookReader(@Valid BookReader bookReader, BindingResult bindingResult) {
+    	BookReader bkReader = new BookReader();
+    	bkReader.setUserId(bookReader.getUserId());
+    	bkReader.setName(bookReader.getName());
+    	bkReader.setBorrowBooksCount(bookReader.getBorrowBooksCount());
+    	bkReader.setLastModified(new Date());
     	
-        return readerService.insertReader(reader);
+        return readerService.insertReader(bkReader);
     }
 
-    @GetMapping("/bookreader/{userId}")
-    public BookReader findByUserId(@PathVariable("userId") String userId) {
+    @GetMapping("/findbookreader")
+    public BookReader findBookReaderByUserId(@RequestParam("userId") String userId) {
         return readerService.findByUserId(userId);
     }
     
     @GetMapping("/allbookreaders")
-    public List<BookReader> findAll() {
+    public List<BookReader> findAllBookReader() {
     	return readerService.findAll();
     }
     
-    @PutMapping("/bookreader/{id}")
-    public BookReader updateReader(@PathVariable("id") Integer id,
-					    	   @RequestParam("userId") String userId,
-					           @RequestParam("name") String name,
-					           @RequestParam("borrowBooksCount") Integer borrowBooksCount) {
-    	BookReader reader = new BookReader();
-    	reader.setId(id);
-    	reader.setUserId(userId);
-    	reader.setName(name);
-    	reader.setBorrowBooksCount(borrowBooksCount);
-    	reader.setLastModified(new Date());
+    @PutMapping("/updatebookreader")
+    public BookReader updateBookReader(@Valid BookReader bookReader, BindingResult bindingResult) {
+    	BookReader bkReader = new BookReader();
+    	bkReader.setId(bookReader.getId());
+    	bkReader.setUserId(bookReader.getUserId());
+    	bkReader.setName(bookReader.getName());
+    	bkReader.setBorrowBooksCount(bookReader.getBorrowBooksCount());
+    	bkReader.setLastModified(new Date());
     	
-        return readerService.updateReader(reader);
+        return readerService.updateReader(bkReader);
     }
 
-    @DeleteMapping("/bookreader/{id}")
-    public void deleteById(@PathVariable("id") Integer id) {
+    @DeleteMapping("/deletebookreader")
+    public void deleteBookReaderById(@RequestParam("id") Integer id) {
         readerService.deleteById(id);
     }
 

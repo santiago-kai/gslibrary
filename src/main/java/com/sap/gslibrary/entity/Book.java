@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "BOOKS")
@@ -27,8 +29,19 @@ public class Book {
 	private int id;
 	
 	@NotNull
-	@Column(name = "NAME", unique = true)
+	@Column(name = "NAME")
 	private String name;
+	
+	@NotNull
+	@Column(name = "ISBN")
+	@Size(max = 13, min = 13)
+	private String isbn;
+	
+	@Column(name = "IMG")
+	private String img;
+	
+	@Column(name = "EBOOK")
+	private String ebook;
 	
 	@Column(name = "DONOR")
 	private String donor;
@@ -44,6 +57,7 @@ public class Book {
 	private String description;
 	
 	@Column(name = "BORROWER")
+	@Pattern(regexp="^([I]\\d{6}|[C]\\d{7})$", message="UserId format is not correct!")
 	private String borrower;
 	
 	@Column(name = "BORROWTIME")
@@ -62,12 +76,16 @@ public class Book {
         this.id  = id;
     }
 
-    public Book(int id, @NotNull String name, 
-    		String donor, String category, Date purchasingTime, 
-    		String description, String borrower, 
-    		Date borrowerTime, Date lastModified) {
+	public Book(int id, @NotNull String name, @NotNull @Size(max = 13, min = 13) String isbn, String img, String ebook,
+			String donor, String category, Date purchasingTime, String description,
+			@Pattern(regexp = "^([I]\\d{6}|[C]\\d{7})$", message = "UserId format is not correct!") String borrower,
+			Date borrowerTime, Date lastModified) {
+		super();
 		this.id = id;
 		this.name = name;
+		this.isbn = isbn;
+		this.img = img;
+		this.ebook = ebook;
 		this.donor = donor;
 		this.category = category;
 		this.purchasingTime = purchasingTime;
@@ -93,6 +111,30 @@ public class Book {
 		this.name = name;
 	}
 	
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public String getEbook() {
+		return ebook;
+	}
+
+	public void setEbook(String ebook) {
+		this.ebook = ebook;
+	}
+
 	public String getDonor() {
 		return donor;
 	}
@@ -148,5 +190,14 @@ public class Book {
 	public void setLastModified(Date lastModified) {
 		this.lastModified = lastModified;
 	}
+
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", name=" + name + ", isbn=" + isbn + ", img=" + img + ", ebook=" + ebook + ", donor="
+				+ donor + ", category=" + category + ", purchasingTime=" + purchasingTime + ", description="
+				+ description + ", borrower=" + borrower + ", borrowerTime=" + borrowerTime + ", lastModified="
+				+ lastModified + "]";
+	}
+
    
 }
